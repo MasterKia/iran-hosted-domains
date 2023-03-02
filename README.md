@@ -1,4 +1,4 @@
-# Iran Hosted Domains
+# Iran Hosted Domains + PersianBlocker
 
 - [داکیومنت فارسی](README.fa.md)
 
