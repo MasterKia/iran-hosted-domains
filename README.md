@@ -237,6 +237,10 @@ go run ./ --outputdir=../
 If you know of any other source, or you found a website that isn't here, please open
 an [issue][link-issues] or add that specific website to [custom_domains.py][link-custom] and make a [PR][link-pr].
 
+Individual files on this repo can be received under the MIT license from here:
+https://github.com/bootmortis/iran-hosted-domains
+But the whole work on this repo (including the releases files) are licensed under the GNU AGPL-3.0.
+
 ## How does it work?
 
 A Python script is executed by Github Action and generates files that are on the release page.
