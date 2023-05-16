@@ -47,7 +47,7 @@ jobs:
       - name: Check result files
         run: |
           total=$(wc -l output/domains.txt | awk 'END {print $1}')
-          old=$(curl -sSL --connect-timeout 5 -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/bootmortis/iran-hosted-domains/releases/latest | grep "body" | cut -d\" -f4 | cut -d " " -f1)          
+          old=$(curl -sSL --connect-timeout 5 -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/MasterKia/iran-hosted-domains/releases/latest | grep "body" | cut -d\" -f4 | cut -d " " -f1)          
 
           echo "total $total"
           echo "old $old"
