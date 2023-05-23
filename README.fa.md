@@ -60,7 +60,7 @@
   </tr>
 </table>
   
-### [SagerNet](https://github.com/SagerNet/SagerNet)
+### [SagerNet](https://github.com/SagerNet/SagerNet) / [Matsuri](https://github.com/MatsuriDayo/Matsuri)
 
 1. فایل `iran.dat` را از [این صفحه][link-release] دانلود کنید.
 2. فایل را از طریق `Route -> Three dots -> Manage Route Assets`  به کلاینت اضافه کنید.  
@@ -95,6 +95,35 @@
   </tr>
 </table>
 
+  
+### [NekoBox](https://github.com/MatsuriDayo/NekoBoxForAndroid)
+
+1. فایل `iran-geosite.db` را از [این صفحه][link-release] دانلود کنید.
+2. نام فایل را به `geosite.db` تغییر دهید.
+3. فایل را از طریق `Route -> Three dots -> Manage Route Assets`  به کلاینت اضافه کنید.  
+4.  از بخش  `Route -> Create Route` قوانین زیر را اضافه کنید:   
+</div>  
+
+- Block Iran Ads:
+  - domain: `geosite:ads`
+  - outbound: `Block`
+- Bypass Iran .ir Domains:
+  - domain: `domain:.ir`
+  - outbound: `Bypass`
+- Bypass Iran non .ir Domains:
+  - domain: `geosite:other`
+  - outbound: `Bypass`
+- Bypass Iran geoip:
+  - ip: `geoip:ir`
+  - outbound: `Bypass`
+
+<div dir=rtl>  
+
+5. اتصال خود را قطع و وصل کنید.
+  
+  ⚠️ مهم: با اینکار فایل پیش‌فرض geosite با `iran-geosite.db` جایگذاری می‌شود و دسته بندی‌های geosite پیش‌فرض مثل `category-ads-all` قابل استفاده نیستند. با آپدیت کردن `geosite.db` از طریق `Manage Route Assets` می‌توانید دوباره از geosite پیش‌فرض استفاده کنید.
+  
+  
 ### [Shadowrocket](https://apps.apple.com/us/app/shadowrocket/id932747118)
 
 1. فایل `shadowrocket.conf` را دانلود کنید.
@@ -111,33 +140,48 @@
 
 ### [Clash](https://github.com/Dreamacro/clash) (Like [ClashX](https://github.com/yichengchen/clashX) / [clash_for_windows_pkg](https://github.com/Fndroid/clash_for_windows_pkg) / [Clash Verge](https://github.com/zzzgydi/clash-verge) / ...)
 
-1. مطمئن شوید که حداقل از ورژن `2023.04.13` [Clash Premium](https://github.com/Dreamacro/clash/releases/tag/premium) Core یا ورژن `1.14.1` [Clash.Meta](https://github.com/MetaCubeX/Clash.Meta) Core استفاده می‌کنید. در غیر این صورت از فرمت نسخه‌ی قدیمی که در مرحله‌ی سوم توضیح داده شده‌است استفاده کنید.
+1. مطمئن شوید که حداقل از ورژن `2023.04.13` [Clash Premium](https://github.com/Dreamacro/clash/releases/tag/premium) Core یا ورژن `1.14.4` [Clash.Meta](https://github.com/MetaCubeX/Clash.Meta) Core استفاده می‌کنید. در غیر این صورت از فرمت نسخه‌ی قدیمی که در مرحله‌ی سوم توضیح داده شده‌است استفاده کنید.
 2. صفحه‌ی پروفایل/تنظیمات فعلی خود را که استفاده می‌کنید باز کنید.  
 3. این خطوط را به فایل اضافه کنید:  
 ```yaml
 rule-providers:
-  iran:
+  iran_other:
     type: http
     format: text
     behavior: domain
-    url: "https://github.com/bootmortis/iran-hosted-domains/releases/latest/download/clash_rules.txt"
-    path: ./ruleset/iran.txt
+    url: "https://github.com/bootmortis/iran-hosted-domains/releases/latest/download/clash_rules_other.txt"
+    path: ./ruleset/iran_other.txt
+    interval: 432000
+  iran_ads:
+    type: http
+    format: text
+    behavior: domain
+    url: "https://github.com/bootmortis/iran-hosted-domains/releases/latest/download/clash_rules_ads.txt"
+    path: ./ruleset/iran_ads.txt
     interval: 432000
 ```
 ⚠️ نکته: اگر از نسخه‌های قدیمی تر Clash Core استفاده می‌کنید بجای خطوط بالا این خطوط را به فایل اضافه کنید:
 ```yaml
 rule-providers:
-  iran:
+  iran_other:
     type: http
     behavior: domain
-    url: "https://github.com/bootmortis/iran-hosted-domains/releases/latest/download/clash_rules.yaml"
-    path: ./ruleset/iran.yaml
+    url: "https://github.com/bootmortis/iran-hosted-domains/releases/latest/download/clash_rules_other.yaml"
+    path: ./ruleset/iran_other.yaml
+    interval: 432000
+  iran_ads:
+    type: http
+    behavior: domain
+    url: "https://github.com/bootmortis/iran-hosted-domains/releases/latest/download/clash_rules_ads.yaml"
+    path: ./ruleset/iran_ads.yaml
     interval: 432000
 ```
 
 4. سپس خط‌های زیر را به بخش قوانین `Rules` اضافه کنید:  
 ```yaml
-  - RULE-SET,iran,DIRECT
+  - RULE-SET,iran_ads,REJECT
+  - DOMAIN-SUFFIX,ir,DIRECT
+  - RULE-SET,iran_other,DIRECT
   - GEOIP,IR,DIRECT
 ```
 
@@ -148,14 +192,18 @@ rule-providers:
 1. صفحه‌ی پروفایل/تنظیمات فعلی خود را که استفاده می‌کنید باز کنید. 
 2. سپس خط‌های زیر را به بخش قوانین `[Rule]` اضافه کنید: 
 ```INI
-DOMAIN-SET,https://github.com/bootmortis/iran-hosted-domains/releases/latest/download/surge_domainset.txt,DIRECT,update-interval=432000
+DOMAIN-SET,https://github.com/bootmortis/iran-hosted-domains/releases/latest/download/surge_domainset_ads.txt,REJECT,update-interval=432000
+DOMAIN-SUFFIX,ir,DIRECT
+DOMAIN-SET,https://github.com/bootmortis/iran-hosted-domains/releases/latest/download/surge_domainset_other.txt,DIRECT,update-interval=432000
 GEOIP,IR,DIRECT
 ```
 > سرف برد update-interval را نادیده می‌گیره، بجاش می‌تونید از طریق Tools> External resources لیست دامنه‌ها را آپدیت کنید.
 
 ⚠️ نکته: اگر از نسخه‌های قدیمی‌تر از Surge for Mac v3.5.1/Surge for iOS v4.2.2 استفاده می‌کنید به‌جای DOMAIN-SET از RULE-SET استفاده کنید: 
 ```INI
-RULE-SET,https://github.com/bootmortis/iran-hosted-domains/releases/latest/download/surge_ruleset.txt,DIRECT,update-interval=432000
+RULE-SET,https://github.com/bootmortis/iran-hosted-domains/releases/latest/download/surge_ruleset_ads.txt,REJECT,update-interval=432000
+DOMAIN-SUFFIX,ir,DIRECT
+RULE-SET,https://github.com/bootmortis/iran-hosted-domains/releases/latest/download/surge_ruleset_other.txt,DIRECT,update-interval=432000
 GEOIP,IR,DIRECT
 ```
 3. فایل را ذخیره کنید.
@@ -184,8 +232,7 @@ DOMAIN-KEYWORD,,YourFinalProxy/ProxyGroup,force-remote-dns
 
   
 ### [V2Ray Server](https://www.v2ray.com/en/configuration/routing.html)
-برای مسدود سازی دامنه‌ها و IP های داخلی در سمت سرور لطفا به [این آموزش][link-v2ray-server-block] مراجعه کنید.
-
+برای مسدود سازی دامنه‌ها و IP های داخلی در سمت سرور لطفا به [این آموزش][link-v2ray-server-block] مراجعه کنید (همچنین حتما [#58](/../../issues/58) را نیز بررسی کنید).
   
 ### [Nekoray](https://github.com/MatsuriDayo/nekoray)
 
@@ -249,6 +296,41 @@ DOMAIN-KEYWORD,,YourFinalProxy/ProxyGroup,force-remote-dns
 }
 ```
 3. برای اطلاعات بیشتر در مورد قالب کانفیگ sing-box [اینجا را ببینید](https://sing-box.sagernet.org/configuration/).
+
+## به‌روزرسانی فایل `iran.dat` به‌طور خودکار
+
+اطمینان حاصل کردن از داشتن آخرین نسخه فایل `iran.dat` ممکن است برای شما اهمیت داشته باشد. این بخش شما را در راه‌اندازی یک فرآیند خودکار برای به‌روزرسانی فایل راهنمایی خواهد کرد.
+
+### پیش‌نیازها
+
+- باید `curl` و `shasum` را بر روی سیستم خود نصب داشته باشید.
+
+### استفاده
+
+1. اسکریپت [update_iran_dat.sh](scripts/update_iran_dat.sh) را دانلود کنید.
+    ```shell
+    curl -LO https://raw.githubusercontent.com/bootmortis/iran-hosted-domains/main/scripts/update_iran_dat.sh
+    ```
+2. با استفاده از دستور زیر اسکریپت را اجرایی کنید:
+    ```shell
+    chmod +x update_iran_dat.sh
+    ```
+3. با اجرای دستور زیر، فایل crontab را باز کنید:
+    ```shell
+    crontab -e
+    ```
+4. در ویرایشگر crontab، خط زیر را اضافه کنید تا اسکریپت هر سه‌شنبه اجرا شود (یک روز پس از به‌روزرسانی فایل `iran.dat`):
+    ```shell
+    0 0 * * 2 /path/to/update_iran_dat.sh /path/to/iran.dat
+    ```
+    مطمئن شوید که `/path/to/update_iran_dat.sh` را با مسیر واقعی اسکریپت در سیستم خود و `/path/to/iran.dat` را با مسیر واقعی فایل `iran.dat` که می‌خواهید به‌روزرسانی کنید، جایگزین کرده‌اید.
+5. فایل crontab را ذخیره کرده و ویرایشگر را ببندید.
+
+اسکریپت `update_iran_dat.sh` فرآیند به‌روزرسانی فایل `iran.dat` را انجام می‌دهد. ابتدا بررسی می‌کند که فایل از قبل وجود دارد و مقدار checksum فایل فعلی را با آخرین نسخه موجود در مخزن مقایسه می‌کند. اگر نسخه جدیدی موجود باشد، فایل جدید را دانلود کرده و جایگزین فایل قبلی می‌کند. اگر فایل محلی وجود نداشته باشد، به سادگی آخرین نسخه را دانلود کرده و در مسیر مشخص شده ذخیره می کند.
+
+**توجه:** اسکریپت فرض می‌کند که شما دسترسی کافی برای نوشتن در پوشه‌ای که فایل `iran.dat` در آن قرار دارد، دارید. اگر با مشکلی مواجه شدید، اطمینان حاصل کنید که اسکریپت مجوز نوشتن مناسبی دارد یا اسکریپت را به‌صورت مطابق نیاز خود تغییر دهید.
+
+قبل از تنظیم cron job، به صورت دستی اسکریپت را تست کنید و اطمینان حاصل کنید که به درستی اجرا می‌شود.
 
 ## ایجاد دستی فایل .dat (آموزش)
 

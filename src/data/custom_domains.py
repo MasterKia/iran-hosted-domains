@@ -71,10 +71,14 @@ custom_domains = {
         "sedastore.com",
         "pay98.app",
         "zil.ink",
+        "salambaabaa.com",
+        "konkurcomputer.ir",
+        "bazicenter.com",
     ],
     "remove": [
         "googleapis.com",
         "gvt1.com",
+        "eset.com",
     ],
     "remove_contain": [
         "google.com",

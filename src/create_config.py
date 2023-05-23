@@ -5,7 +5,7 @@ import constants as consts
 import utils
 
 
-def shadowrocket(bypass_domains: Iterable[str]):
+def shadowrocket(bypass_domains: Iterable[str], ads_domains: Iterable[str]):
     config = (
         "#Shadowrocket\n"
         "[General]\n"
@@ -20,14 +20,17 @@ def shadowrocket(bypass_domains: Iterable[str]):
         "dns-direct-fallback-proxy = true\n"
         "ipv6 = true\n"
         "[Rule]\n"
-    )
-    config += "\n".join(f"DOMAIN-SUFFIX,{domain},DIRECT" for domain in bypass_domains) + "\n"
-    config += (        
         "IP-CIDR,192.168.0.0/16,DIRECT\n"
         "IP-CIDR,10.0.0.0/8,DIRECT\n"
         "IP-CIDR,172.16.0.0/12,DIRECT\n"
         "IP-CIDR,127.0.0.0/8,DIRECT\n"
         "GEOIP,IR,DIRECT\n"
+    )
+    config += "\n".join(f"DOMAIN-SUFFIX,{domain},REJECT" for domain in ads_domains) + "\n"
+    config += "DOMAIN-SUFFIX,ir,DIRECT\n"
+    config += "\n".join(f"DOMAIN-SUFFIX,{domain},DIRECT" for domain in bypass_domains) + "\n"
+    config += (        
+
         "FINAL,PROXY\n"
         "[Host]\n"
         "localhost = 127.0.0.1\n"
@@ -52,37 +55,45 @@ def qv2ray(bypass_domains: Iterable[str], proxied_domains: Iterable[str], ads_do
     utils.save_to_file(consts.qv2ray_schema_path, json.dumps(schema))
 
 
-def clash(bypass_domains: Iterable[str]):
-    text_config = yaml_config = (
+def clash(bypass_domains: Iterable[str], ads_domains: Iterable[str]):
+    text_config_other = yaml_config_other = text_config_ads = yaml_config_ads = (
         "# Clash\n"
-        "# Wiki: https://github.com/Dreamacro/clash/wiki/premium-core-features#rule-providers\n"
+        "# Wiki: https://dreamacro.github.io/clash/premium/rule-providers.html#rule-providers\n"
     )
     
-    text_config += "".join(f"+.{domain}\n" for domain in bypass_domains)
-    yaml_config += "payload:\n" + "".join(f"  - '+.{domain}'\n" for domain in bypass_domains)
+    text_config_other += "".join(f"+.{domain}\n" for domain in bypass_domains)
+    yaml_config_other += "payload:\n" + "".join(f"  - '+.{domain}'\n" for domain in bypass_domains)
+    text_config_ads += "".join(f"+.{domain}\n" for domain in ads_domains)
+    yaml_config_ads += "payload:\n" + "".join(f"  - '+.{domain}'\n" for domain in ads_domains)
 
 
-    utils.save_to_file(consts.clash_path_text, text_config)
-    utils.save_to_file(consts.clash_path_yaml, yaml_config)
+    utils.save_to_file(consts.clash_path_text_other, text_config_other)
+    utils.save_to_file(consts.clash_path_yaml_other, yaml_config_other)
+    utils.save_to_file(consts.clash_path_text_ads, text_config_ads)
+    utils.save_to_file(consts.clash_path_yaml_ads, yaml_config_ads)
 
 
-def surge(bypass_domains: Iterable[str]):
-    ruleset_config = (
+def surge(bypass_domains: Iterable[str], ads_domains: Iterable[str]):
+    ruleset_config_other = ruleset_config_ads =  (
         "# Surge\n"
         "# Manual: https://manual.nssurge.com/rule/ruleset.html\n"
     )
-    ruleset_config += "".join(f"DOMAIN-SUFFIX,{domain}\n" for domain in bypass_domains)    
+    ruleset_config_other += "".join(f"DOMAIN-SUFFIX,{domain}\n" for domain in bypass_domains)    
+    ruleset_config_ads += "".join(f"DOMAIN-SUFFIX,{domain}\n" for domain in ads_domains)        
 
 
-    domainset_config = (
+    domainset_config_other = domainset_config_ads = (
         "# Surge\n"
         "# Manual: https://manual.nssurge.com/rule/domain-based.html\n"
     )    
-    domainset_config += "".join(f".{domain}\n" for domain in bypass_domains)    
+    domainset_config_other += "".join(f".{domain}\n" for domain in bypass_domains)
+    domainset_config_ads += "".join(f".{domain}\n" for domain in ads_domains)           
 
 
-    utils.save_to_file(consts.surge_ruleset_path, ruleset_config)
-    utils.save_to_file(consts.surge_domainset_path, domainset_config)    
+    utils.save_to_file(consts.surge_ruleset_path_other, ruleset_config_other)
+    utils.save_to_file(consts.surge_domainset_path_other, domainset_config_other) 
+    utils.save_to_file(consts.surge_ruleset_path_ads, ruleset_config_ads)
+    utils.save_to_file(consts.surge_domainset_path_ads, domainset_config_ads)          
 
 
 def switchy_omega(bypass_domains: Iterable[str]):
