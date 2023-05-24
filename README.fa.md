@@ -149,14 +149,14 @@ rule-providers:
     type: http
     format: text
     behavior: domain
-    url: "https://github.com/bootmortis/iran-hosted-domains/releases/latest/download/clash_rules_other.txt"
+    url: "https://github.com/MasterKia/iran-hosted-domains/releases/latest/download/clash_rules_other.txt"
     path: ./ruleset/iran_other.txt
     interval: 432000
   iran_ads:
     type: http
     format: text
     behavior: domain
-    url: "https://github.com/bootmortis/iran-hosted-domains/releases/latest/download/clash_rules_ads.txt"
+    url: "https://github.com/MasterKia/iran-hosted-domains/releases/latest/download/clash_rules_ads.txt"
     path: ./ruleset/iran_ads.txt
     interval: 432000
 ```
@@ -166,13 +166,13 @@ rule-providers:
   iran_other:
     type: http
     behavior: domain
-    url: "https://github.com/bootmortis/iran-hosted-domains/releases/latest/download/clash_rules_other.yaml"
+    url: "https://github.com/MasterKia/iran-hosted-domains/releases/latest/download/clash_rules_other.yaml"
     path: ./ruleset/iran_other.yaml
     interval: 432000
   iran_ads:
     type: http
     behavior: domain
-    url: "https://github.com/bootmortis/iran-hosted-domains/releases/latest/download/clash_rules_ads.yaml"
+    url: "https://github.com/MasterKia/iran-hosted-domains/releases/latest/download/clash_rules_ads.yaml"
     path: ./ruleset/iran_ads.yaml
     interval: 432000
 ```
@@ -192,18 +192,18 @@ rule-providers:
 1. صفحه‌ی پروفایل/تنظیمات فعلی خود را که استفاده می‌کنید باز کنید. 
 2. سپس خط‌های زیر را به بخش قوانین `[Rule]` اضافه کنید: 
 ```INI
-DOMAIN-SET,https://github.com/bootmortis/iran-hosted-domains/releases/latest/download/surge_domainset_ads.txt,REJECT,update-interval=432000
+DOMAIN-SET,https://github.com/MasterKia/iran-hosted-domains/releases/latest/download/surge_domainset_ads.txt,REJECT,update-interval=432000
 DOMAIN-SUFFIX,ir,DIRECT
-DOMAIN-SET,https://github.com/bootmortis/iran-hosted-domains/releases/latest/download/surge_domainset_other.txt,DIRECT,update-interval=432000
+DOMAIN-SET,https://github.com/MasterKia/iran-hosted-domains/releases/latest/download/surge_domainset_other.txt,DIRECT,update-interval=432000
 GEOIP,IR,DIRECT
 ```
 > سرف برد update-interval را نادیده می‌گیره، بجاش می‌تونید از طریق Tools> External resources لیست دامنه‌ها را آپدیت کنید.
 
 ⚠️ نکته: اگر از نسخه‌های قدیمی‌تر از Surge for Mac v3.5.1/Surge for iOS v4.2.2 استفاده می‌کنید به‌جای DOMAIN-SET از RULE-SET استفاده کنید: 
 ```INI
-RULE-SET,https://github.com/bootmortis/iran-hosted-domains/releases/latest/download/surge_ruleset_ads.txt,REJECT,update-interval=432000
+RULE-SET,https://github.com/MasterKia/iran-hosted-domains/releases/latest/download/surge_ruleset_ads.txt,REJECT,update-interval=432000
 DOMAIN-SUFFIX,ir,DIRECT
-RULE-SET,https://github.com/bootmortis/iran-hosted-domains/releases/latest/download/surge_ruleset_other.txt,DIRECT,update-interval=432000
+RULE-SET,https://github.com/MasterKia/iran-hosted-domains/releases/latest/download/surge_ruleset_other.txt,DIRECT,update-interval=432000
 GEOIP,IR,DIRECT
 ```
 3. فایل را ذخیره کنید.
@@ -270,7 +270,7 @@ DOMAIN-KEYWORD,,YourFinalProxy/ProxyGroup,force-remote-dns
   "route": {
     "geosite": {
       "path": "iran-geosite.db",
-      "download_url": "https://github.com/bootmortis/iran-hosted-domains/releases/latest/download/iran-geosite.db"
+      "download_url": "https://github.com/MasterKia/iran-hosted-domains/releases/latest/download/iran-geosite.db"
     },
     "rules": [
       {
@@ -309,7 +309,7 @@ DOMAIN-KEYWORD,,YourFinalProxy/ProxyGroup,force-remote-dns
 
 1. اسکریپت [update_iran_dat.sh](scripts/update_iran_dat.sh) را دانلود کنید.
     ```shell
-    curl -LO https://raw.githubusercontent.com/bootmortis/iran-hosted-domains/main/scripts/update_iran_dat.sh
+    curl -LO https://raw.githubusercontent.com/MasterKia/iran-hosted-domains/main/scripts/update_iran_dat.sh
     ```
 2. با استفاده از دستور زیر اسکریپت را اجرایی کنید:
     ```shell
@@ -381,8 +381,8 @@ go run ./ --outputdir=../
   - [سامانه مدیریت اینترنت مشتریان شرکت مخابرات ایران](https://adsl.tci.ir/panel/sites)
   - مخزن [V2fly Domain List Community](https://github.com/v2fly/domain-list-community) (لایسنس MIT)
   - [لیست شخصی][link-custom]
-- تبلیغات:
-  - مخزن [uBOPa - uBO Parsi filter list](https://github.com/nimasaj/uBOPa) (لایسنس MIT)
+- تبلیغات و ردیاب ها:
+  - مخزن [PersianBlocker](https://github.com/MasterKia/PersianBlocker) (لایسنس AGPLv3)
 
 اگر شما منابع دیگری می‌شناسید، و یا وب‌سایتی پیدا کرده‌اید که اینجا نیست لطفا یک
 [issue][link-issues] باز کنید و یا فایل [custom_domains.py][link-custom] را تغییر داده و [PR][link-pr] ایجاد کنید.
