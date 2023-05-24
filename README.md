@@ -144,14 +144,14 @@ rule-providers:
     type: http
     format: text
     behavior: domain
-    url: "https://github.com/bootmortis/iran-hosted-domains/releases/latest/download/clash_rules_other.txt"
+    url: "https://github.com/MasterKia/iran-hosted-domains/releases/latest/download/clash_rules_other.txt"
     path: ./ruleset/iran_other.txt
     interval: 432000
   iran_ads:
     type: http
     format: text
     behavior: domain
-    url: "https://github.com/bootmortis/iran-hosted-domains/releases/latest/download/clash_rules_ads.txt"
+    url: "https://github.com/MasterKia/iran-hosted-domains/releases/latest/download/clash_rules_ads.txt"
     path: ./ruleset/iran_ads.txt
     interval: 432000
 ```
@@ -161,13 +161,13 @@ rule-providers:
   iran_other:
     type: http
     behavior: domain
-    url: "https://github.com/bootmortis/iran-hosted-domains/releases/latest/download/clash_rules_other.yaml"
+    url: "https://github.com/MasterKia/iran-hosted-domains/releases/latest/download/clash_rules_other.yaml"
     path: ./ruleset/iran_other.yaml
     interval: 432000
   iran_ads:
     type: http
     behavior: domain
-    url: "https://github.com/bootmortis/iran-hosted-domains/releases/latest/download/clash_rules_ads.yaml"
+    url: "https://github.com/MasterKia/iran-hosted-domains/releases/latest/download/clash_rules_ads.yaml"
     path: ./ruleset/iran_ads.yaml
     interval: 432000
 ```
@@ -187,18 +187,18 @@ rule-providers:
 1. Open your current profile/config that you use.
 2. Add these lines to `[Rule]` section
 ```INI
-DOMAIN-SET,https://github.com/bootmortis/iran-hosted-domains/releases/latest/download/surge_domainset_ads.txt,REJECT,update-interval=432000
+DOMAIN-SET,https://github.com/MasterKia/iran-hosted-domains/releases/latest/download/surge_domainset_ads.txt,REJECT,update-interval=432000
 DOMAIN-SUFFIX,ir,DIRECT
-DOMAIN-SET,https://github.com/bootmortis/iran-hosted-domains/releases/latest/download/surge_domainset_other.txt,DIRECT,update-interval=432000
+DOMAIN-SET,https://github.com/MasterKia/iran-hosted-domains/releases/latest/download/surge_domainset_other.txt,DIRECT,update-interval=432000
 GEOIP,IR,DIRECT
 ```
 > Surfboard ignore update-interval at this moment, consider updating from Tool>External resources
 
 ⚠️ Note: If you are using older Surge versions (before Surge for Mac v3.5.1/Surge for iOS v4.2.2) add these instead:
 ```INI
-RULE-SET,https://github.com/bootmortis/iran-hosted-domains/releases/latest/download/surge_ruleset_ads.txt,REJECT,update-interval=432000
+RULE-SET,https://github.com/MasterKia/iran-hosted-domains/releases/latest/download/surge_ruleset_ads.txt,REJECT,update-interval=432000
 DOMAIN-SUFFIX,ir,DIRECT
-RULE-SET,https://github.com/bootmortis/iran-hosted-domains/releases/latest/download/surge_ruleset_other.txt,DIRECT,update-interval=432000
+RULE-SET,https://github.com/MasterKia/iran-hosted-domains/releases/latest/download/surge_ruleset_other.txt,DIRECT,update-interval=432000
 GEOIP,IR,DIRECT
 ```
 3. Save the file.
@@ -263,7 +263,7 @@ For blocking local domains and IPs in the server side follow [this][link-v2ray-s
   "route": {
     "geosite": {
       "path": "iran-geosite.db",
-      "download_url": "https://github.com/bootmortis/iran-hosted-domains/releases/latest/download/iran-geosite.db"
+      "download_url": "https://github.com/MasterKia/iran-hosted-domains/releases/latest/download/iran-geosite.db"
     },
     "rules": [
       {
@@ -302,7 +302,7 @@ Ensuring that you have the latest version of the `iran.dat` file is crucial for 
 
 1. Download the [update_iran_dat.sh](scripts/update_iran_dat.sh) script from this repository.
     ```shell
-    curl -LO https://raw.githubusercontent.com/bootmortis/iran-hosted-domains/main/scripts/update_iran_dat.sh
+    curl -LO https://raw.githubusercontent.com/MasterKia/iran-hosted-domains/main/scripts/update_iran_dat.sh
     ```
 2. Make the script executable by running the following command in the terminal:
     ```shell
@@ -379,7 +379,7 @@ go run ./ --outputdir=../
   - [V2fly Domain List Community](https://github.com/v2fly/domain-list-community) (MIT License)
   - [Custom List][link-custom]
 - ADs:
-  - [uBOPa - uBO Parsi filter list](https://github.com/nimasaj/uBOPa) (MIT License)
+  - [PersianBlocker](https://github.com/MasterKia/PersianBlocker) (AGPLv3 License)
 
 If you know of any other source, or you found a website that isn't here, please open
 an [issue][link-issues] or add that specific website to [custom_domains.py][link-custom] and make a [PR][link-pr].
