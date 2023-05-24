@@ -378,7 +378,7 @@ go run ./ --outputdir=../
   - [ADSL TCI](https://adsl.tci.ir/panel/sites)
   - [V2fly Domain List Community](https://github.com/v2fly/domain-list-community) (MIT License)
   - [Custom List][link-custom]
-- ADs:
+- Ads and trackers:
   - [PersianBlocker](https://github.com/MasterKia/PersianBlocker) (AGPLv3 License)
 
 If you know of any other source, or you found a website that isn't here, please open
