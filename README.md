@@ -393,3 +393,11 @@ A Python script is executed by Github Action and generates files that are on the
 [link-issues]: ../../issues/new?assignees=&labels=enhancement&template=request-for-domain-addition-removal.md&title=Add%2FRemove+%60example.com%60
 [link-release]: ../../releases/latest
 [link-v2ray-server-block]: https://github.com/iranxray/hope/blob/main/routing.md#%D9%85%D8%B3%D8%AF%D9%88%D8%AF%D8%B3%D8%A7%D8%B2%DB%8C-%D8%A7%D8%B2-%D8%B3%D9%85%D8%AA-%D8%B3%D8%B1%D9%88%D8%B1
+
+
+
+## License
+All files are licensed under the MIT license by the upstream but the `Releases` files are licensed under the AGPLv3.
+
+
+
