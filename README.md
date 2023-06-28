@@ -208,7 +208,7 @@ GEOIP,IR,DIRECT
 ```INI
 DOMAIN-KEYWORD,,YourFinalProxy/ProxyGroup,force-remote-dns
 ```
-> Use your own Proxy/ProxyGroup instead of 'YourFinalProxy/ProxyGroup')
+> Use your own Proxy/ProxyGroup instead of 'YourFinalProxy/ProxyGroup'
 
 🚨 You can also use Surge's Rule-Set or Domain-Set in [Loon](https://www.nsloon.com) / [LanceX](https://lancex.org).
 
@@ -229,19 +229,70 @@ For blocking local domains and IPs in the server side follow [this][link-v2ray-s
 
 ### [Nekoray](https://github.com/MatsuriDayo/nekoray)
 
-1. Download the `domains.txt` file from [release section][link-release].
-2. Open `Program` in the man page of nekoray.
-3. Open `preferences` and click on `Routing Setting`.
-4. Paste `domains.txt` file on domain-direct section.
-5. Press OK button and restart the app.
+:warning: Nekoray can use both sing-box and v2ray cores. Please use the corresponding routing rules according to your selected Nekoray core.
 
-<table>
-  <tr>
-    <td> <img align="right" width="400" src="assets/nekoray1.png"> </td>
-    <td> <img align="right" width="400" src="assets/nekoray2.png"> </td>
+:information_source: You can see your current Nekoray core by going to `preferences` > `Basic Settings` > `Core`. 
+
+  #### [sing-box core](#sing-box-core)
+
+  1. Download `iran-geosite.db` from [release section][link-release].
+  2. Rename it to `geosite.db`.
+  3. Copy `geosite.db` to Nekoray folder and replace the file.
+  4. Open `preferences` and click on `Routing Setting`.
+  5. Go to `Simple Route` tab.
+  6. Copy the following lines to the corresponding fields:
+   - `Direct, IP`
+   ```
+   geoip:ir
+   geoip:private
+   ```
+   - `Direct, Domain`
+   ```
+   regexp:.+\.ir$
+   geosite:other
+   ```
+   - `Block, Domain`
+   ```
+   geosite:ads
+   ```
+  7. Press OK button and restart the app.
+  
+  :warning: Important: You are replacing default geosite with `iran-geosite.db` by doing this, so you can't use default geosite categories like `category-ads-all`. You can switch back to default geosite by downloading `geosite.db` from [sing-geosite](https://github.com/SagerNet/sing-geosite/releases) and replace it in Nekoray folder.
+  
+  <table>
+   <tr>
+    <td> <img align="right" width="400" src="assets/nekoray-sing-box.png"> </td>
    </tr>
-  </tr>
-</table>
+  </table>
+
+  #### [v2ray core](#v2ray-core)
+
+  1. Download `iran.dat` from [release section][link-release].
+  2. Copy `iran.dat` to Nekoray folder.
+  3. Open `preferences` and click on `Routing Setting`.
+  4. Go to `Simple Route` tab.
+  5. Copy the following lines to the corresponding fields:
+   - `Direct, IP`
+   ```
+   geoip:ir
+   geoip:private
+   ```
+   - `Direct, Domain`
+   ```
+   regexp:.+\.ir$
+   ext:iran.dat:other
+   ```
+   - `Block, Domain`
+   ```
+   ext:iran.dat:ads
+   ```
+   6. Press OK button and restart the app.
+
+   <table>
+    <tr>
+     <td> <img align="right" width="400" src="assets/nekoray-v2ray.png"> </td>
+    </tr>
+   </table>
 
 ### [v2rayN](https://github.com/2dust/v2rayN/)
 
@@ -290,6 +341,19 @@ For blocking local domains and IPs in the server side follow [this][link-v2ray-s
 ```
 3. For more information about the sing-box config template [see here](https://sing-box.sagernet.org/configuration/).
 
+### [Hysteria](https://github.com/apernet/hysteria)
+1. Download `hysteria_client.acl` OR `hysteria_server.acl` based on your usage from [here][link-release].
+    - hysteria_client.acl : block Iran ADs and bypass other Iran Domains/IPs (for client)
+    - hysteria_server.acl : block all Iran Domains/IPs (for server)
+    
+2. Add these lines to your conifg:
+```json
+    "acl": "acl_file_path",
+    "mmdb": "GeoLite2-Country.mmdb"
+```
+> 'acl_file_path': path of downloaded `.acl` file
+
+   
 ## Automatically Updating the `iran.dat` File
 
 Ensuring that you have the latest version of the `iran.dat` file is crucial for accurate filtering of Iranian domains. This section will guide you on how to set up an automated process to update the file on a regular basis.
