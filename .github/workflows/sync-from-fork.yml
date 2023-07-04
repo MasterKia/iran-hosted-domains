@@ -1,0 +1,64 @@
+name: Sync from fork
+on:
+  schedule:
+    # * is a special character in YAML so you have to quote this string
+    - cron: "0 * * * *"
+  workflow_dispatch:
+
+jobs:
+  check-for-changes:
+    runs-on: ubuntu-latest
+    env:
+      FILES_TO_CHECK: "src/data/custom_domains.py"
+      UPSTREAM_URL: "https://github.com/bootmortis/iran-hosted-domains.git"
+    outputs:
+      changes: ${{ steps.git-check.outputs.changes-present }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Fetch release version
+        run: |
+          git remote add upstream ${UPSTREAM_URL}
+          git fetch upstream && git diff --name-only --diff-filter AM HEAD..remotes/upstream/main > updatedfiles.txt
+      - name: Check for modified files
+        id: git-check
+        run: echo changes-present=$(if grep -qE "${FILES_TO_CHECK}" updatedfiles.txt; then echo 'true'; else echo 'false'; fi) >> $GITHUB_OUTPUT
+      - name: Show files
+        run: cat updatedfiles.txt
+      - name: Have files changed
+        if: steps.check-for-changes.outputs.changes-present == 'false'
+        run: echo "No changes needed to be synchronised"
+  sync:
+    needs: check-for-changes
+    if: ${{ needs.check-for-changes.outputs.changes == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: tgymnich/fork-sync@v1.6.3
+        with:
+          owner: bootmortis
+          base: main
+          head: main
+          auto_approve: false
+          ignore_fail: true
+  update-pr-desc:
+    needs: sync
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
+      UPSTREAM_URL: "https://github.com/bootmortis/iran-hosted-domains.git"
+    steps:
+      - uses: actions/checkout@v3
+      - name: Collate Changes
+        run: |
+          git remote add upstream ${UPSTREAM_URL}
+          git fetch upstream
+
+          FILES_TO_CHECK=("src/data/custom_domains.py")
+          for files in ${FILES_TO_CHECK[*]}; do
+          echo '```diff' >> changes.txt;
+          git diff --diff-filter AM HEAD..remotes/upstream/main -- $files >> changes.txt;
+          echo -e '```\n' >> changes.txt;
+          done;
+
+          git remote remove upstream
+      - name: Update PR Description
+        run: gh pr edit `gh pr list | grep 'Fork Sync' | awk {'print $1'}` -b "`cat "changes.txt"`"
