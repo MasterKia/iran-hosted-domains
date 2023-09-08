@@ -305,6 +305,23 @@ For blocking local domains and IPs in the server side follow [this][link-v2ray-s
 6. Click on `Confirm` until you reach the main app window
 7. Make sure that your rule is selected from the bottom of the page. If not choose it from the drop down menu.
 
+
+### [SwitchyOmega](https://github.com/FelisCatus/SwitchyOmega)
+1. Open SwitchyOmega Options.
+2. Go to `auto switch` Or any other Switch type profile that you use.
+3. Check `Rule list rules` box and choose Direct for it's profile.
+4. Choose your proxy's profile for `Default` rule.
+5. Use `Switchy` for `Rule List Format`.
+6. Enter this URL for `Rule List URL`:
+ ```
+ https://github.com/bootmortis/iran-hosted-domains/releases/latest/download/switchy_omega.sorl
+ ```
+7. Tap `Download Profile Now`.
+8. Apply Changes.
+9. Set SwitchyOmegas's mode to `auto switch` or your other Switch type profile that you use.
+>  For updating rules's list just repeat step 7.
+
+
 ### [Sing-Box](https://github.com/SagerNet/sing-box)
 
 1. Download `iran-geosite.db` file from [here][link-release] and place it in the sing-box working directory.
@@ -442,6 +459,7 @@ go run ./ --outputdir=../
   - [Enamad](https://enamad.ir/DomainListForMIMT) - [Mirror](https://github.com/bootmortis/enamad-mirror)
   - [ADSL TCI](https://adsl.tci.ir/panel/sites)
   - [V2fly Domain List Community](https://github.com/v2fly/domain-list-community) (MIT License)
+  - [Iran Web and Mobile Festival](https://directory.iwmf.ir/) - [Mirror](https://github.com/Chocolate4U/iwmf.ir-Mirror) (MIT License)
   - [Custom List][link-custom]
 - Ads and trackers:
   - [PersianBlocker](https://github.com/MasterKia/PersianBlocker) (AGPLv3 License)

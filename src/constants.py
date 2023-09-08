@@ -5,6 +5,8 @@ ads_url = "https://raw.githubusercontent.com/MasterKia/PersianBlocker/main/Persi
 v2fly_base_url = "https://raw.githubusercontent.com/v2fly/domain-list-community/master/data/"
 # https://enamad.ir/DomainListForMIMT
 enamad_url = "https://raw.githubusercontent.com/bootmortis/enamad-mirror/main/out/domains.csv"
+# https://directory.iwmf.ir
+iwmf_url = "https://raw.githubusercontent.com/Chocolate4U/iwmf.ir-Mirror/main/data/iwmf.csv"
 
 # input files
 adsl_tci_file_path = "src/data/adsl_tci.txt"
@@ -26,4 +28,4 @@ surge_domainset_path_other = "output/surge_domainset_other.txt"
 surge_domainset_path_ads = "output/surge_domainset_ads.txt"
 hysteria_client_path = "output/hysteria_client.acl"
 hysteria_server_path = "output/hysteria_server.acl"
-switchy_omega_path = "output/switchy_omega.txt"
+switchy_omega_path = "output/switchy_omega.sorl"
