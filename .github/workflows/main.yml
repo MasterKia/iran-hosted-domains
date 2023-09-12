@@ -60,6 +60,11 @@ jobs:
 
           echo "TOTAL_DOMAINS=$total" >> $GITHUB_ENV
 
+      - name: Get active domains
+        run: |
+          curl -sSL https://raw.githubusercontent.com/Chocolate4U/Iran-v2ray-rules/redundant/redundant-domains.txt > redundant-domains.txt
+          comm -23 output/other_domains.txt redundant-domains.txt > output/active-domains.txt
+
       - name: Build .dat file
         if: ${{ env.SHOULD_UPDATE }}
         run: |
@@ -75,6 +80,16 @@ jobs:
           cd ../output
           mv dlc.dat iran.dat
 
+      - name: Build lite .dat file
+        if: ${{ env.SHOULD_UPDATE }}
+        run: |
+          mv output/active-domains.txt domain-list-community/data/other
+
+          cd domain-list-community
+          go run ./ --outputdir=../output
+          cd ../output
+          mv dlc.dat iran-lite.dat
+
       - name: Build sing-box .db file
         if: ${{ env.SHOULD_UPDATE }}
         run: |
@@ -85,6 +100,15 @@ jobs:
           cd sing-geosite
           go run -v .
           mv iran-geosite.db ../output/iran-geosite.db
+
+      - name: Build sing-box lite .db file
+        if: ${{ env.SHOULD_UPDATE }}
+        run: |
+          cp output/iran-lite.dat sing-geosite/data/iran.dat
+          
+          cd sing-geosite
+          go run -v .
+          mv iran-geosite.db ../output/iran-geosite-lite.db
 
       - name: Calculate checksum
         if: ${{ env.SHOULD_UPDATE }}
