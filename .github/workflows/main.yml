@@ -4,11 +4,11 @@ on:
   schedule:
     - cron: '0 0 * * *'
   workflow_dispatch:
-    inputs:
-      force_update:
-        description: 'Force update'
-        required: false
-        default: 'false'
+  #  inputs:
+  #    force_update:
+  #      description: 'Force update'
+  #      required: false
+  #      default: 'false'
 
 jobs:
   crawl:
@@ -48,15 +48,15 @@ jobs:
       - name: Check result files
         run: |
           total=$(wc -l output/domains.txt | awk 'END {print $1}')
-          old=$(curl -sSL --connect-timeout 5 -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/MasterKia/iran-hosted-domains/releases/latest | grep "body" | cut -d\" -f4 | cut -d " " -f1)          
+          # old=$(curl -sSL --connect-timeout 5 -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/MasterKia/iran-hosted-domains/releases/latest | grep "body" | cut -d\" -f4 | cut -d " " -f1)          
 
-          echo "total $total"
-          echo "old $old"
+          # echo "total $total"
+          # echo "old $old"
 
-          if [[ ${{ github.event.inputs.force_update || 'false' }} == 'true' || $total -ne $old ]]; then
-            echo "SHOULD_UPDATE=true" >> $GITHUB_ENV
-            echo "Should Update"
-          fi
+          # if [[ ${{ github.event.inputs.force_update || 'false' }} == 'true' || $total -ne $old ]]; then
+          #   echo "SHOULD_UPDATE=true" >> $GITHUB_ENV
+          #   echo "Should Update"
+          # fi
 
           echo "TOTAL_DOMAINS=$total" >> $GITHUB_ENV
 
@@ -66,7 +66,7 @@ jobs:
           comm -23 output/other_domains.txt redundant-domains.txt > output/active-domains.txt
 
       - name: Build .dat file
-        if: ${{ env.SHOULD_UPDATE }}
+        # if: ${{ env.SHOULD_UPDATE }}
         run: |
           git clone https://github.com/v2fly/domain-list-community
           rm -rf domain-list-community/data/*
@@ -81,7 +81,7 @@ jobs:
           mv dlc.dat iran.dat
 
       - name: Build lite .dat file
-        if: ${{ env.SHOULD_UPDATE }}
+        # if: ${{ env.SHOULD_UPDATE }}
         run: |
           mv output/active-domains.txt domain-list-community/data/other
 
@@ -91,7 +91,7 @@ jobs:
           mv dlc.dat iran-lite.dat
 
       - name: Build sing-box .db file
-        if: ${{ env.SHOULD_UPDATE }}
+        # if: ${{ env.SHOULD_UPDATE }}
         run: |
           git clone https://github.com/bootmortis/sing-geosite
           
@@ -102,7 +102,7 @@ jobs:
           mv iran-geosite.db ../output/iran-geosite.db
 
       - name: Build sing-box lite .db file
-        if: ${{ env.SHOULD_UPDATE }}
+        # if: ${{ env.SHOULD_UPDATE }}
         run: |
           cp output/iran-lite.dat sing-geosite/data/iran.dat
           
@@ -111,7 +111,7 @@ jobs:
           mv iran-geosite.db ../output/iran-geosite-lite.db
 
       - name: Calculate checksum
-        if: ${{ env.SHOULD_UPDATE }}
+        # if: ${{ env.SHOULD_UPDATE }}
         run: |
           cd output
           for file in *; do
@@ -119,7 +119,7 @@ jobs:
           done
 
       - name: Upload result as release
-        if: ${{ env.SHOULD_UPDATE }}
+        # if: ${{ env.SHOULD_UPDATE }}
         uses: ncipollo/release-action@v1
         with:
           artifacts: "output/*.*"
