@@ -5,7 +5,7 @@ from typing import Iterable
 
 import constants as consts
 import create_config
-import get_domians
+import get_domains
 import utils
 from data.custom_domains import custom_domains
 
@@ -38,15 +38,15 @@ if __name__ == "__main__":
 
     # load other domains list
     proxy_domains = sorted(custom_domains["proxy"])
-    ad_domains = get_domians.ads()
+    ad_domains = get_domains.ads()
 
     # Request data from sources and cleanup
     all_domains = collect_and_clean_domains(
-        get_domians.g2b_ito_gov(),
-        get_domians.enamad(),
-        get_domians.iwmf(),
-        get_domians.adsl_tci(),
-        get_domians.v2fly(),
+        get_domains.g2b_ito_gov(),
+        get_domains.enamad(),
+        get_domains.iwmf(),
+        get_domains.adsl_tci(),
+        get_domains.v2fly(),
     )
 
     # Divide info
