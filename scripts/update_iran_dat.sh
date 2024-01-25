@@ -1,6 +1,6 @@
 #!/bin/bash
 
-url="https://github.com/bootmortis/iran-hosted-domains/releases/latest/download/iran.dat"
+url="https://github.com/MasterKia/iran-hosted-domains/releases/latest/download/iran.dat"
 current_file="$1"
 
 if [ -z "$current_file" ]; then
