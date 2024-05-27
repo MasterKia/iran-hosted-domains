@@ -349,6 +349,49 @@ https://github.com/bootmortis/iran-hosted-domains/releases/latest/download/switc
 
 ### [Sing-Box](https://github.com/SagerNet/sing-box)
 
+#### فرمت `geosite.srs`
+
+فایل کانفیگ sing-box را باز کنید و بخش Route را در این [فرمت](https://sing-box.sagernet.org/configuration/rule-set/) ویرایش کنید:
+```json
+{
+  "route": {
+    "rule_set": [
+      {
+        "tag": "iran-geosite-ads",
+        "type": "remote",
+        "format": "binary",
+        "update_interval": "7d",
+        "url": "https://github.com/bootmortis/sing-geosite/releases/latest/download/geosite-ads.srs"
+      },
+      {
+        "tag": "iran-geosite-all",
+        "type": "remote",
+        "format": "binary",
+        "update_interval": "7d",
+        "url": "https://github.com/bootmortis/sing-geosite/releases/latest/download/geosite-all.srs"
+      }
+    ],
+    "rules": [
+      {
+        "rule_set": [
+          "iran-geosite-ads"
+        ],
+        "outbound": "block"
+      },
+      {
+        "rule_set": [
+          "iran-geosite-all"
+        ],
+        "outbound": "direct"
+      }
+    ]
+  }
+}
+```
+#### فرمت `geosite.db`
+
+⚠️نکته: این فرمت قدیمی شده و ممکن است در نسخه های آینده پشتیبانی نشود، برای مهاجرت به نسخه‌ی جدید [اینجا](https://sing-box.sagernet.org/migration/#migrate-geosite-to-rule-sets) و برای اطلاعات بیشتر [اینجا](https://github.com/bootmortis/iran-hosted-domains/issues/180)  را ببینید.
+
 1. فایل `iran-geosite.db` را از [اینجا][link-release] دانلود کرده و در پوشه sing-box قرار دهید.
 2. فایل کانفیگ sing-box را باز کنید و بخش Route را در این [فرمت](https://sing-box.sagernet.org/configuration/route/geosite/) ویرایش کنید:
 
@@ -572,6 +615,7 @@ go run ./ --outputdir=../
 - فایل **domains.txt**: تمام وب سایت های میزبانی شده در ایران را شامل می شود.
 - فایل‌های **hysteria_client.acl** و **hysteria_server.acl**: بخش [Hysteria](#hysteria) را ببینید.
 - فایل **iran-geosite.db**: برای هسته sing-box بخش [Sing-Box](#sing-box) را ببینید.
+- فایل‌های **geosite-*.srs**: برای sing-box ورژن 1.8 به بعد، این فایل‌ها را می‌توانید از [این صفحه](https://github.com/bootmortis/sing-geosite/releases/latest) دریافت کنید.
 - فایل **iran.dat**: تمام وب سایت های میزبانی شده در ایران، تبلیغات و دامنه های مرتبط با پروکسی برای v2ray/xray را شامل می شود، برای اطلاعات بیشتر [دسته بندی های کامل](#دسته-بندی-کامل) را ببینید.
 - فایل **qv2ray_schema.json**: سناریوی json قابل وارد کردن که می تواند در [Qv2ray](#qv2ray) استفاده شود.
 - فایل **shadowrocket.conf:** فایل conf قابل وارد کردن که می تواند در [Shadowrocket](#shadowrocket) استفاده شود.

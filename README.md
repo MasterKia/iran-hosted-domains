@@ -333,6 +333,49 @@ https://github.com/bootmortis/iran-hosted-domains/releases/latest/download/switc
 
 ### [Sing-Box](https://github.com/SagerNet/sing-box)
 
+#### `geosite.srs` formatting:
+
+Open the sing-box config file and edit the Route section in this [format](https://sing-box.sagernet.org/configuration/rule-set/):
+```json
+{
+  "route": {
+    "rule_set": [
+      {
+        "tag": "iran-geosite-ads",
+        "type": "remote",
+        "format": "binary",
+        "update_interval": "7d",
+        "url": "https://github.com/bootmortis/sing-geosite/releases/latest/download/geosite-ads.srs"
+      },
+      {
+        "tag": "iran-geosite-all",
+        "type": "remote",
+        "format": "binary",
+        "update_interval": "7d",
+        "url": "https://github.com/bootmortis/sing-geosite/releases/latest/download/geosite-all.srs"
+      }
+    ],
+    "rules": [
+      {
+        "rule_set": [
+          "iran-geosite-ads"
+        ],
+        "outbound": "block"
+      },
+      {
+        "rule_set": [
+          "iran-geosite-all"
+        ],
+        "outbound": "direct"
+      }
+    ]
+  }
+}
+```
+
+#### `geosite.db` formatting:
+
+⚠️ Important: Geosite is deprecated and may be removed in the future, check [Migration](https://sing-box.sagernet.org/migration/#migrate-geosite-to-rule-sets) or [here](https://github.com/bootmortis/iran-hosted-domains/issues/180).
 1. Download `iran-geosite.db` file from [here][link-release] and place it in the sing-box working directory.
 2. Open the sing-box config file and edit the Route section in this [format](https://sing-box.sagernet.org/configuration/route/geosite/)
 
@@ -360,7 +403,6 @@ https://github.com/bootmortis/iran-hosted-domains/releases/latest/download/switc
   }
 }
 ```
-
 3. For more information about the sing-box config template [see here](https://sing-box.sagernet.org/configuration/).
 
 ### [Hysteria](https://github.com/apernet/hysteria)
@@ -539,6 +581,7 @@ Also, for each file there is a `.sha256` file that contains sha256 hash of that 
 - **domains.txt**: Contains all websites hosted in Iran.
 - **hysteria_client.acl** and **hysteria_server.acl**: see [Hysteria](#hysteria) section.
 - **iran-geosite.db**: for sing-box core see [Sing-Box](#sing-box) section.
+- **geosite-*.srs** files: for sing-box v1.8 and later, these files are available [here](https://github.com/bootmortis/sing-geosite/releases/latest).
 - **iran.dat**: Contains all websites hosted in Iran, ADs and proxy related domains for v2ray/xray, see [Full Categories](#full-categories) for more info.
 - **qv2ray_schema.json**: Importable json schema that can be used in [Qv2ray](#qv2ray).
 - **shadowrocket.conf:** Importable conf file that can be used in [Shadowrocket](#shadowrocket).
